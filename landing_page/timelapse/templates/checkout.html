@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %} {% block content %}
+<p>VIEW !!!</p>
+<form action="" method="post">
+  {% csrf_token %} {{form.URLservice}}
+  <table>
+    {{ form }}
+  </table>
+  <input type="submit" value="Submit Order" />
+</form>
+{% endblock %}

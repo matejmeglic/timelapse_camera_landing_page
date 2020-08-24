@@ -1,0 +1,41 @@
+from django.db import models
+import django.utils.timezone
+
+
+class Service(models.Model):
+    page_order = models.IntegerField("Page order", default=50)
+    service = models.CharField("Service", max_length=30)
+    description = models.TextField("Description")
+    price = models.IntegerField("Price")
+    shipping_price = models.IntegerField("Shipping cost", default=0)
+    available = models.BooleanField("Available", default=False)
+    coming_soon = models.BooleanField("Coming soon", default=False)
+
+    class Meta:
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
+        ordering = ("-available", "service")
+
+    def __str__(self):
+        return self.service
+
+
+class Order(models.Model):
+    timestamp = models.DateTimeField("Timestamp", auto_now_add=True)
+    service = models.ForeignKey(
+        Service, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    quantity = models.IntegerField("Quantity", default=1)
+    name = models.CharField("Name", max_length=30)
+    email = models.EmailField("Email")
+    message = models.TextField("Message", max_length=300, blank=True, null=True)
+    GDPR = models.BooleanField("Allow communication", default=True)
+    order_delivered = models.BooleanField("Was order completed", default=False)
+
+    class Meta:
+        verbose_name = "Order"
+        verbose_name_plural = "Orders"
+        ordering = ("order_delivered", "timestamp")
+
+    def __str__(self):
+        return self.timestamp

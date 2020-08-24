@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<ul>
+  {% for service in services %}
+  <a href="{% url 'checkout' serviceid=service.id %}"
+    ><li>
+      <div>
+        <h4>{{service.service}}</h4>
+        <p>{{service.description}}</p>
+      </div>
+    </li></a
+  >
+  {% endfor %}
+</ul>
+{% endblock %}
