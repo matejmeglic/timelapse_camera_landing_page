@@ -32,7 +32,9 @@ def checkout(request, slug):
     else:
         form = Landing_form()
         form.slug = slug
-        data = ???
+        data = []
+        for element in services:
+            data.append({"textField": element.description})
 
         context = {
             "services": services,
