@@ -5,6 +5,7 @@ import django.utils.timezone
 class Service(models.Model):
     page_order = models.IntegerField("Page order", default=50)
     service = models.CharField("Service", max_length=30)
+    slug = models.SlugField("Slug")
     description = models.TextField("Description")
     price = models.IntegerField("Price")
     shipping_price = models.IntegerField("Shipping cost", default=0)

@@ -1,15 +1,135 @@
-{% extends "base_generic.html" %} {% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+    <title>Autonomous Timelapse Camera</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="Autonomous Timelapse Camera that uploads to youtube and web"
+      content="Fully automated in-camera flow of recording images, converting to videos, uploading to youtube and web and storing on external media."
+    />
+    <meta name="author" content="Matej Meglic" />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
 
-<ul>
-  {% for service in services %}
-  <a href="{% url 'checkout' serviceid=service.id %}"
-    ><li>
-      <div>
-        <h4>{{service.service}}</h4>
-        <p>{{service.description}}</p>
+    <!-- Custom fonts for this template -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/e89cb83fcf.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/index_css.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+
+<div class="overlay"></div>
+  <div class="masthead">
+    <div class="masthead-bg"></div>
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-12 my-auto">
+            <div class="masthead-content text-white py-5 py-md-0">
+              <h1 class="mb-3">Autonomous Timelapse Camera</h1>
+              <p class="mb-5">
+                After months of rigorous testing we reached <strong>Beta testing phase</strong> and are shipping
+                cameras! Choose your package below and be among the first to get your own ATC!
+              
+              Login over wifi, configure changes in minutes, customize automated flow up to your liking and then 
+                <strong>forget about it</strong> for a year or so. After that, you will likely had to check free space on HDD.</p>
+              <p>Products we currently offer:</p>
+                {% for service in context.services %}
+                <a href="{% url 'checkout' slug=service.slug %}"
+                  >
+                    <div>
+                      <p class="service"><span class="h4">{{service.service}}</span><span> - {{service.price}} EUR + VAT</span></p>
+                    </div>
+                  </a
+                >
+                {% endfor %}   
+                {% for cs in context.coming_soon %}
+                <a href="{% url 'checkout' slug=cs.slug %}"
+                  >
+                    <div>
+                      <p class="service"><span class="gray">{{cs.service}}</span><span><strong> COMING SOON!</strong></span></p>
+                    </div>
+                  </a
+                >
+                {% endfor %}   
+            </div>
+          </div>
+        </div>
       </div>
-    </li></a
-  >
-  {% endfor %}
-</ul>
-{% endblock %}
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <ul>
+    <li><strong>Get the latest features such as:</strong></li>
+    <li>- Full control over camera settings</li>
+    <li>- Supports multiple capture intervals</li>
+    <li>- Overnight capture support</li>
+    <li>- Sunrise/Sunset capture with offsets</li>
+    <li>- Timecode filenaming</li>
+    <li>- Export videos in different formats (ffmpeg)</li>
+    <li>- Automatically upload videos to youtube</li>
+    <li>&nbsp;&nbsp;(supporting different playlists and accounts)</li> 
+    <li>- Upload images to your own server</li>
+    <li>- Store compressed images to backup HDD</li>
+    <li>- Easy camera remote access</li>
+  </ul>
+</div>
+<iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/m6OZLrFKv1s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="social-icons">
+  <ul class="list-unstyled text-center mb-0">
+    <li class="list-unstyled-item">
+      <a href="#">
+        <i class="fab fa-medium-m"></i>
+      </a>
+    </li>
+    <li class="list-unstyled-item">
+      <a href="mailto:matej@matejmeglic.com">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="{% static 'vendor/vide/jquery.vide.min.js' %}"></script>
+
+<!-- Custom scripts for this template -->
+<script src="{% static 'js/coming-soon.min.js' %}"></script>
+
+
+</body>
+</html>
+
+
+

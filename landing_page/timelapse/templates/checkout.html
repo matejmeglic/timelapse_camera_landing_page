@@ -1,10 +1,40 @@
-{% extends "base_generic.html" %} {% block content %}
-<p>VIEW !!!</p>
-<form action="" method="post">
-  {% csrf_token %} {{form.URLservice}}
-  <table>
-    {{ form }}
-  </table>
-  <input type="submit" value="Submit Order" />
-</form>
+{% extends "base_generic.html" %} {% load static %}{% block content %}
+
+<div class="sidebar">
+  <h1 class="mb-3">Autonomous Timelapse Camera</h1>
+  <p class="mb-5">
+    After months of rigorous testing we reached
+    <strong>Beta testing phase</strong> and are shipping cameras! Choose your
+    package below and be among the first to get your own ATC! Login over wifi,
+    configure changes in minutes, customize automated flow up to your liking and
+    then <strong>forget about it</strong> for a year or so. After that, you will
+    likely had to check free space on HDD.
+  </p>
+</div>
+
+<div class="desc">
+  <select class="service_dropdown">
+    {% for service in context.services %}
+    <option value="{{service.service}}">{{service.service}}</option>
+    {% endfor %}
+  </select>
+  <div class="service">{{context.servicesJSON}}</div>
+</div>
+
+<div class="main form-style-8">
+  <form action="" method="post">
+    {% csrf_token %}
+    <table>
+      {{ context.form }}
+    </table>
+    <input type="submit" value="Submit Order" />
+  </form>
+</div>
+
+{% endblock %} {% block scripts %}
+<script type="text/javascript">
+  var received_data = "{{ context.servicesJSON|safe }}";
+
+  console.log(received_data);
+</script>
 {% endblock %}

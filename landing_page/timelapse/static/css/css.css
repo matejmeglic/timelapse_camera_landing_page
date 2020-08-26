@@ -1,0 +1,144 @@
+a:link,
+a:active,
+a:visited {
+  color: #fff;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+a:hover {
+  color: rgb(184, 184, 184);
+  text-decoration: none;
+  font-weight: none;
+}
+
+.gray {
+  color: gray;
+}
+
+li {
+  list-style: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+p {
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather";
+  font-weight: 700;
+  color: #fff;
+}
+
+.h4 {
+  font-family: "Merriweather";
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+p strong {
+  font-weight: 700;
+}
+
+body {
+  font-family: "Source Sans Pro";
+  font-weight: 300;
+}
+
+.content {
+  background-color: #1a395f;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  width: 10vw;
+  margin: 2vw 10vw 2vh 2vw;
+}
+
+.desc {
+  min-width: 20vw;
+  margin: 5vw 5vw 2vh 2vw;
+}
+
+.service {
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+.main {
+  margin-top: 2vw;
+}
+
+.form-style-8 {
+  font-family: "Open Sans Condensed", arial, sans;
+  width: 500px;
+  color: #fff;
+}
+
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin-bottom: 10px;
+  font: 16px Arial, Helvetica, sans-serif;
+  height: 45px;
+  color: #fff;
+}
+
+.form-style-8 input[type="button"],
+.form-style-8 input[type="submit"] {
+  -moz-box-shadow: inset 0px 1px 0px 0px #a77a47;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #a77a47;
+  box-shadow: inset 0px 1px 0px 0px #a77a47;
+  background-color: #a77a47;
+  border: 1px solid #8d673b;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 14px;
+  padding: 8px 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.form-style-8 input[type="button"]:hover,
+.form-style-8 input[type="submit"]:hover {
+  background: linear-gradient(to bottom, #a77a47 5%, #8d673b 100%);
+  background-color: #34caca;
+}
+
+select option {
+  color: black;
+}

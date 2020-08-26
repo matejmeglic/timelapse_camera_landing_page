@@ -4,19 +4,25 @@ from .models import Service
 
 
 def index(request):
-    services = Service.objects.filter(available=True)
+    services = Service.objects.filter(available=True).order_by("-page_order")
+    coming_soon = Service.objects.filter(coming_soon=True).order_by("page_order")
 
-    return render(request, "index.html", {"services": services})
+    context = {"services": services, "coming_soon": coming_soon}
+
+    return render(request, "index.html", {"context": context})
 
 
-def checkout(request, serviceid):
-    URLservice = Service.objects.get(id=serviceid)
+def checkout(request, slug):
+    selected_service = Service.objects.get(slug=slug)
+    services = Service.objects.filter(available=True).order_by("-page_order")
+    coming_soon = Service.objects.filter(coming_soon=True).order_by("page_order")
+
     if request.method == "POST":
         form = Landing_form(request.POST)
 
         if form.is_valid():
             current_order = form.save(commit=False)
-            current_order.service = URLservice
+            current_order.slug = slug
             current_order.save()
 
             return render(
@@ -25,8 +31,16 @@ def checkout(request, serviceid):
 
     else:
         form = Landing_form()
+        form.slug = slug
+        data = ???
 
-        form.URLservice = URLservice
+        context = {
+            "services": services,
+            "servicesJSON": data,
+            "coming_soon": coming_soon,
+            "form": form,
+            "selected_service": selected_service,
+        }
 
-    return render(request, "checkout.html", {"form": form})
+    return render(request, "checkout.html", {"context": context})
 

@@ -8,5 +8,5 @@ class Landing_form(ModelForm):
 
     class Meta:
         model = Order
-        exclude = ("order_delivered", "timestamp", "service")
+        exclude = ("order_delivered", "timestamp")
 

@@ -4,7 +4,15 @@ from . import models
 
 @admin.register(models.Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ("page_order", "service", "available", "description")
+    list_display = (
+        "page_order",
+        "service",
+        "slug",
+        "available",
+        "coming_soon",
+        "description",
+    )
+    list_display_links = ("service",)
     ordering = ("page_order",)
 
 
