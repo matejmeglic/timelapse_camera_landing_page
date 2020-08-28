@@ -2,17 +2,17 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Service)
-class ServiceAdmin(admin.ModelAdmin):
+@admin.register(models.Product)
+class ProductvAdmin(admin.ModelAdmin):
     list_display = (
         "page_order",
-        "service",
+        "product",
         "slug",
         "available",
         "coming_soon",
         "description",
     )
-    list_display_links = ("service",)
+    list_display_links = ("product",)
     ordering = ("page_order",)
 
 
@@ -21,7 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "timestamp",
         "order_delivered",
-        "service",
+        "product",
         "name",
         "email",
         "GDPR",

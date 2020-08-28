@@ -1,10 +1,12 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Order, Service
+from .models import Order, Product
 
 
 class Landing_form(ModelForm):
-    # service = forms.ModelChoiceField(queryset=Service.objects.filter(available=True))
+    product = forms.ModelChoiceField(
+        queryset=Product.objects.filter(available=True).order_by("-page_order")
+    )
 
     class Meta:
         model = Order

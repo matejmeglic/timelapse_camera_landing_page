@@ -2,9 +2,9 @@ from django.db import models
 import django.utils.timezone
 
 
-class Service(models.Model):
+class Product(models.Model):
     page_order = models.IntegerField("Page order", default=50)
-    service = models.CharField("Service", max_length=30)
+    product = models.CharField("Product", max_length=30)
     slug = models.SlugField("Slug")
     description = models.TextField("Description")
     price = models.IntegerField("Price")
@@ -13,18 +13,18 @@ class Service(models.Model):
     coming_soon = models.BooleanField("Coming soon", default=False)
 
     class Meta:
-        verbose_name = "Service"
-        verbose_name_plural = "Services"
-        ordering = ("-available", "service")
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
+        ordering = ("-available", "product")
 
     def __str__(self):
-        return self.service
+        return self.product
 
 
 class Order(models.Model):
     timestamp = models.DateTimeField("Timestamp", auto_now_add=True)
-    service = models.ForeignKey(
-        Service, null=True, blank=True, on_delete=models.SET_NULL
+    product = models.ForeignKey(
+        Product, null=True, blank=True, on_delete=models.SET_NULL
     )
     quantity = models.IntegerField("Quantity", default=1)
     name = models.CharField("Name", max_length=30)

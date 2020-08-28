@@ -59,11 +59,11 @@
               Login over wifi, configure changes in minutes, customize automated flow up to your liking and then 
                 <strong>forget about it</strong> for a year or so. After that, you will likely had to check free space on HDD.</p>
               <p>Products we currently offer:</p>
-                {% for service in context.services %}
-                <a href="{% url 'checkout' slug=service.slug %}"
+                {% for product in context.products %}
+                <a href="{% url 'checkout' slug=product.slug %}"
                   >
                     <div>
-                      <p class="service"><span class="h4">{{service.service}}</span><span> - {{service.price}} EUR + VAT</span></p>
+                      <p class="product"><span class="h4">{{product.product}}</span><span> - {{product.price}} EUR + VAT</span></p>
                     </div>
                   </a
                 >
@@ -72,7 +72,7 @@
                 <a href="{% url 'checkout' slug=cs.slug %}"
                   >
                     <div>
-                      <p class="service"><span class="gray">{{cs.service}}</span><span><strong> COMING SOON!</strong></span></p>
+                      <p class="product"><span class="gray">{{cs.product}}</span><span><strong> COMING SOON!</strong></span></p>
                     </div>
                   </a
                 >

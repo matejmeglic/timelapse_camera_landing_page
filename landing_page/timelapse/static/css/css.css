@@ -55,33 +55,52 @@ p strong {
 }
 
 body {
+  background-color: #1a395f;
   font-family: "Source Sans Pro";
   font-weight: 300;
 }
 
 .content {
-  background-color: #1a395f;
   display: flex;
   flex-direction: row;
 }
 
 .sidebar {
-  width: 10vw;
-  margin: 2vw 10vw 2vh 2vw;
+  width: 15vw;
+  margin: 5vh 5vw 2vh 4vw;
 }
 
 .desc {
-  min-width: 20vw;
-  margin: 5vw 5vw 2vh 2vw;
+  max-width: 35vw;
+  margin: 12vh 2vw 2vh 2vw;
 }
 
-.service {
+.product_dropdown {
+  font-family: "Open Sans Condensed", arial, sans;
+  width: 500px;
   color: #fff;
-  font-size: 2.5rem;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 7px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  background: transparent;
+  margin-bottom: 10px;
+  font: 16px Arial, Helvetica, sans-serif;
+  height: 45px;
+  color: #fff;
+}
+
+.product {
+  margin-top: 4vh;
 }
 
 .main {
-  margin-top: 2vw;
+  margin: 12vh 5vw 2vh 5vw;
 }
 
 .form-style-8 {
@@ -141,4 +160,55 @@ body {
 
 select option {
   color: black;
+}
+
+.social-icons ul {
+  margin-top: 2rem;
+}
+
+.social-icons ul > li {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: inline-block;
+}
+
+.social-icons ul > li > a {
+  display: block;
+  color: white;
+  background-color: #a77a47;
+  border-radius: 100%;
+  font-size: 2rem;
+  line-height: 4rem;
+  height: 4rem;
+  width: 4rem;
+}
+
+@media (max-width: 960px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 5%;
+    text-align: justify;
+  }
+
+  .sidebar {
+    width: 80%;
+    margin: 5vh 0 0 0;
+  }
+
+  .desc {
+    max-width: 80%;
+    margin: 6vh 0 0 0;
+  }
+
+  .product {
+    width: 100%;
+    margin: 0 0 0 0;
+  }
+
+  .main {
+    width: 80%;
+    margin: 8vh 0 8vh 0;
+  }
 }
