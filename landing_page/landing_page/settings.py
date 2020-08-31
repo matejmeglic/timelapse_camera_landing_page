@@ -117,3 +117,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_TEST_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET")
+STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_WEBHOOK")

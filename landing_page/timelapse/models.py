@@ -1,5 +1,9 @@
 from django.db import models
 import django.utils.timezone
+from django.db import models
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class Product(models.Model):
@@ -39,4 +43,4 @@ class Order(models.Model):
         ordering = ("order_delivered", "timestamp")
 
     def __str__(self):
-        return self.timestamp
+        return self.name
