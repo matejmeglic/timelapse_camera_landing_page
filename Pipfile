@@ -6,6 +6,12 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+django-heroku = "*"
+python-dotenv = "*"
+django = "*"
+stripe = "*"
+dnspython = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"

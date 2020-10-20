@@ -4,6 +4,10 @@ from .models import Product
 import stripe
 import os
 from django.http.response import JsonResponse, HttpResponse
+from django.conf import settings
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.base import TemplateView
 
 
 def index(request):
@@ -15,6 +19,7 @@ def index(request):
     return render(request, "index.html", {"context": context})
 
 
+@csrf_exempt
 def checkout(request, slug):
     selected_product = Product.objects.get(slug=slug)
     products = Product.objects.filter(available=True).order_by("-page_order")
@@ -28,7 +33,9 @@ def checkout(request, slug):
             current_order.slug = slug
             current_order.save()
 
-            return render(request, "payment.html", {"id": current_order.id})
+            context = {"current_order": current_order}
+
+            return render(request, "stripe_page.html", {"context": context})
 
     else:
         form = Landing_form()
@@ -54,12 +61,6 @@ def checkout(request, slug):
         }
 
     return render(request, "checkout.html", {"context": context})
-
-
-from django.conf import settings  # new
-from django.http.response import JsonResponse  # new
-from django.views.decorators.csrf import csrf_exempt  # new
-from django.views.generic.base import TemplateView
 
 
 def stripe_page(request):
@@ -92,6 +93,7 @@ def create_checkout_session(request):
                 success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
                 cancel_url=domain_url + "cancelled/",
                 payment_method_types=["card"],
+                customer_email="matej@matejmeglic.com",
                 mode="payment",
                 line_items=[
                     {

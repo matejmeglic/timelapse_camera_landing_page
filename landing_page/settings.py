@@ -23,13 +23,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+#
+#
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+#  SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["timelapsecamera.herokuapp.com"]
 
 
 # Application definition
@@ -80,10 +83,28 @@ WSGI_APPLICATION = "landing_page.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": "djongo",
+        "NAME": os.getenv("ATC_DB"),
+        "CLIENT": {
+            "host": "mongodb+srv://"
+            + str(os.getenv("ATC_DB_USER"))
+            + ":"
+            + str(os.getenv("ATC_DB_PASSWORD"))
+            + "@cluster0.om6yv.mongodb.net/"
+            + str(os.getenv("ATC_DB"))
+            + "?retryWrites=true&w=majority",
+            "username": os.getenv("ATC_DB_USER"),
+            "password": os.getenv("ATC_DB_PASSWORD"),
+        },
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
 
 
 # Password validation
@@ -93,9 +114,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -117,7 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_TEST_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_TEST_SECRET")
 STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_WEBHOOK")
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
