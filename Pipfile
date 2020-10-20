@@ -12,6 +12,7 @@ django = "*"
 stripe = "*"
 dnspython = "*"
 gunicorn = "*"
+djongo = "*"
 
 [requires]
 python_version = "3.8"
