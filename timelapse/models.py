@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-
+# comment
 class Product(models.Model):
     page_order = models.IntegerField("Page order", default=50)
     product = models.CharField("Product", max_length=30)
