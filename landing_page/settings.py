@@ -80,30 +80,31 @@ WSGI_APPLICATION = "landing_page.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "djongo",
-        "NAME": os.getenv("ATC_DB"),
-        "CLIENT": {
-            "host": "mongodb+srv://"
-            + str(os.getenv("ATC_DB_USER"))
-            + ":"
-            + str(os.getenv("ATC_DB_PASSWORD"))
-            + "@cluster0.om6yv.mongodb.net/"
-            + str(os.getenv("ATC_DB"))
-            + "?retryWrites=true&w=majority",
-            "username": os.getenv("ATC_DB_USER"),
-            "password": os.getenv("ATC_DB_PASSWORD"),
-        },
-    }
-}
-
+# Working
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#         "ENGINE": "djongo",
+#         "NAME": os.getenv("ATC_DB"),
+#         "CLIENT": {
+#             "host": "mongodb+srv://"
+#             + str(os.getenv("ATC_DB_USER"))
+#             + ":"
+#             + str(os.getenv("ATC_DB_PASSWORD"))
+#             + "@cluster0.om6yv.mongodb.net/"
+#             + str(os.getenv("ATC_DB"))
+#             + "?retryWrites=true&w=majority",
+#             "username": os.getenv("ATC_DB_USER"),
+#             "password": os.getenv("ATC_DB_PASSWORD"),
+#         },
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    }
+}
 
 
 # Password validation
