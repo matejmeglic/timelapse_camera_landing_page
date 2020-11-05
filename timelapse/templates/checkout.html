@@ -40,8 +40,8 @@
   <div class="product">
     <h4>{{context.selected_product.product}}</h4>
     <p>
-      <strong>Price: {{context.selected_product.price}} EUR </strong>
-      + {{context.selected_product.shipping_price}} EUR shipping + VAT
+      <strong>Price: {{context.selected_product.price}} EUR + </strong>
+      {{context.selected_product.shipping_price}} EUR shipping + VAT
     </p>
     <!-- <p>{{context.selected_product.description}}</p> -->
   </div>
@@ -97,11 +97,9 @@
       if (json[i].product === event.target.value) {
         result.innerHTML = `<h4>${json[i].product}</h4><p><strong>Price: ${
           json[i].price
-        } EUR </strong>
-        ${json[i].shipping_price === 0 ? "" : "+ "}
-        ${json[i].shipping_price === 0 ? "" : json[i].shipping_price}
-        ${json[i].shipping_price === 0 ? "" : " EUR shipping"}
-         + VAT</p>`;
+        } EUR + VAT </strong>${
+          json[i].shipping_price === 0 ? "" : json[i].shipping_price
+        }${json[i].shipping_price === 0 ? "" : " EUR shipping"}</p>`;
 
         description.innerHTML = "";
         description.innerHTML = json[i].description;
