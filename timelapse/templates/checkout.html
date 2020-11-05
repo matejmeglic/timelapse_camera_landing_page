@@ -2,6 +2,7 @@
 
 <div class="sidebar">
   <a href="/"><h1 class="mb-3">Autonomous Timelapse Camera</h1></a>
+
   <p class="mb-5">
     After months of rigorous testing we reached
     <strong>Beta testing phase</strong> and are shipping cameras! Choose your
@@ -39,17 +40,13 @@
   <div class="product">
     <h4>{{context.selected_product.product}}</h4>
     <p>
-      <strong>Price: {{context.selected_product.price}} EUR + VAT</strong> +
-      {{context.selected_product.shipping_price}} EUR shipping
+      <strong>Price: {{context.selected_product.price}} EUR + </strong>
+      {{context.selected_product.shipping_price}} EUR shipping + VAT
     </p>
-
-    <p>{{context.selected_product.description}}</p>
+    <!-- <p>{{context.selected_product.description}}</p> -->
   </div>
-  <!-- <section class="section">
-      <div class="container">
-        <button class="button is-primary" id="submitBtn">Purchase!</button>
-      </div>
-    </section> -->
+  <div id="description"></div>
+
   <br />
   <ul>
     <li><strong>Get the latest features such as:</strong></li>
@@ -79,9 +76,17 @@
   </form>
 </div>
 
-{{ context.productsJSON|json_script:"json" }} {% endblock %} {% block scripts %}
+{{ context.productsJSON|json_script:"json" }}
+{{context.selected_product.description|json_script:"desc_first"}} {% endblock %}
+{% block scripts %}
 <script>
-  var json = JSON.parse(document.getElementById("json").textContent);
+  const json = JSON.parse(document.getElementById("json").textContent);
+  const desc_first = JSON.parse(
+    document.getElementById("desc_first").textContent
+  );
+
+  let description = document.getElementById("description");
+  description.innerHTML = desc_first;
 
   const selectElement = document.querySelector(".product_dropdown");
 
@@ -93,10 +98,10 @@
           json[i].price
         } EUR + VAT </strong>${
           json[i].shipping_price === 0 ? "" : json[i].shipping_price
-        }${json[i].shipping_price === 0 ? "" : " EUR shipping"}</p><p>${
-          json[i].description
-        }</p>`;
-        result.appendChild(el);
+        }${json[i].shipping_price === 0 ? "" : " EUR shipping"}</p>`;
+
+        description.innerHTML = "";
+        description.innerHTML = json[i].description;
       }
     }
   });

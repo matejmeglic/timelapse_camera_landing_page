@@ -33,7 +33,7 @@
               return result.json();
             })
             .then((data) => {
-              // console.log(data);
+              console.log(data);
               // Redirect to Stripe Checkout
               return stripe.redirectToCheckout({
                 // sessionId: data.sessionId,
@@ -42,10 +42,12 @@
                   { price: "price_1HNlaJEfGSqaICf1fSfQtmth", quantity: q },
                   { price: "price_1HNm0aEfGSqaICf1lnfCE7h1", quantity: 1 },
                 ],
+                billingAddressCollection: "required",
                 mode: "payment",
                 successUrl: "https://your-website.com/success",
                 cancelUrl: "https://your-website.com/canceled",
               });
+              // NEW
             })
             .then((res) => {
               // console.log(res);
