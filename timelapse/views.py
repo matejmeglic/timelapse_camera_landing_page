@@ -11,8 +11,8 @@ from django.views.generic.base import TemplateView
 
 
 def index(request):
-    products = Product.objects.filter(available=True).order_by("page_order")
-    coming_soon = Product.objects.filter(coming_soon=True).order_by("page_order")
+    products = Product.objects.filter(available=True).order_by("-page_order")
+    coming_soon = Product.objects.filter(coming_soon=True).order_by("-page_order")
 
     context = {"products": products, "coming_soon": coming_soon}
 
