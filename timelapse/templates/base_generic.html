@@ -38,14 +38,18 @@
       src="https://kit.fontawesome.com/e89cb83fcf.js"
       crossorigin="anonymous"
     ></script>
-
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'favicon.ico' %}"
+    />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static '/js/main.js' %}"></script>
     <!-- Custom styles for this template -->
     <link href="{% static 'css/css.css' %}" rel="stylesheet" />
   </head>
   <body>
-    <div class="content">
-      {% block content %}{% endblock %}
-    </div>
+    <div class="content">{% block content %}{% endblock %}</div>
 
     {% block scripts %} {% endblock %}
   </body>

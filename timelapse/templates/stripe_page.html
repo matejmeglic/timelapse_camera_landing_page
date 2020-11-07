@@ -39,10 +39,15 @@
                 // sessionId: data.sessionId,
                 customerEmail: email,
                 lineItems: [
-                  { price: "price_1HNlaJEfGSqaICf1fSfQtmth", quantity: q },
+                  {
+                    price: "price_1HNlaJEfGSqaICf1fSfQtmth",
+                    quantity: q,
+                    tax_rates: ["txr_1HNm2DEfGSqaICf10BJMqbeO"],
+                  },
                   { price: "price_1HNm0aEfGSqaICf1lnfCE7h1", quantity: 1 },
                 ],
                 billingAddressCollection: "required",
+
                 mode: "payment",
                 successUrl: "https://your-website.com/success",
                 cancelUrl: "https://your-website.com/canceled",

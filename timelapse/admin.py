@@ -8,24 +8,12 @@ class ProductvAdmin(admin.ModelAdmin):
         "page_order",
         "product",
         "slug",
+        "price",
+        "shipping_price",
         "available",
         "coming_soon",
         "description",
     )
     list_display_links = ("product",)
     ordering = ("page_order",)
-
-
-@admin.register(models.Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = (
-        "timestamp",
-        "order_delivered",
-        "product",
-        "name",
-        "email",
-        "GDPR",
-        "message",
-    )
-    ordering = ("-timestamp", "order_delivered")
 

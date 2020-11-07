@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404
-from .forms import Landing_form
 from .models import Product
 import stripe
 import os
@@ -25,40 +24,25 @@ def checkout(request, slug):
     products = Product.objects.filter(available=True).order_by("-page_order")
     coming_soon = Product.objects.filter(coming_soon=True).order_by("page_order")
 
-    if request.method == "POST":
-        form = Landing_form(request.POST)
+    data = []
 
-        if form.is_valid():
-            current_order = form.save(commit=False)
-            current_order.slug = slug
-            current_order.save()
+    for element in products:
+        data.append(
+            {
+                "product": element.product,
+                "slug": element.slug,
+                "price": element.price,
+                "shipping_price": element.shipping_price,
+                "description": element.description,
+            }
+        )
 
-            context = {"current_order": current_order}
-
-            return render(request, "stripe_page.html", {"context": context})
-
-    else:
-        form = Landing_form()
-        form.slug = slug
-        data = []
-
-        for element in products:
-            data.append(
-                {
-                    "product": element.product,
-                    "price": element.price,
-                    "shipping_price": element.shipping_price,
-                    "description": element.description,
-                }
-            )
-
-        context = {
-            "products": products,
-            "productsJSON": data,
-            "coming_soon": coming_soon,
-            "form": form,
-            "selected_product": selected_product,
-        }
+    context = {
+        "products": products,
+        "productsJSON": data,
+        "coming_soon": coming_soon,
+        "selected_product": selected_product,
+    }
 
     return render(request, "checkout.html", {"context": context})
 
@@ -76,33 +60,50 @@ def stripe_config(request):
 
 @csrf_exempt
 def create_checkout_session(request):
+
     if request.method == "GET":
         domain_url = "http://localhost:8000/"
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        try:
-            # Create new Checkout Session for the order
-            # Other optional params include:
-            # [billing_address_collection] - to display billing address details on the page
-            # [customer] - if you have an existing Stripe Customer ID
-            # [payment_intent_data] - lets capture the payment later
-            # [customer_email] - lets you prefill the email input in the form
-            # For full details see https:#stripe.com/docs/api/checkout/sessions/create
 
-            # ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+        # Create Stripe lineItems (add shipping+tax)
+        orderedProduct = Product.objects.filter(slug=request.GET.get("slug"))[0]
+        items = [{}]
+
+        print(request)
+        print(request.GET.get("quantity"))
+
+        if orderedProduct.shipping_price > 0:
+            items = [
+                {
+                    "price": orderedProduct.price_stripe,
+                    "quantity": request.GET.get("quantity"),
+                    "tax_rates": [orderedProduct.price_tax_stripe],
+                },
+                {
+                    "price": orderedProduct.shipping_price_stripe,
+                    "quantity": 1,
+                    "tax_rates": [orderedProduct.shipping_tax_stripe],
+                },
+            ]
+        else:
+            items = [
+                {
+                    "price": orderedProduct.price_stripe,
+                    "quantity": request.GET.get("quantity"),
+                    "tax_rates": [orderedProduct.price_tax_stripe],
+                }
+            ]
+
+        try:
+            # Create new Stripe Checkout Session for the order
+
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
                 cancel_url=domain_url + "cancelled/",
                 payment_method_types=["card"],
-                customer_email="matej@matejmeglic.com",
+                billing_address_collection="required",
                 mode="payment",
-                line_items=[
-                    {
-                        "name": "T-shirt",
-                        "quantity": 1,
-                        "currency": "usd",
-                        "amount": "2000",
-                    }
-                ],
+                line_items=items,
             )
             return JsonResponse({"sessionId": checkout_session["id"]})
         except Exception as e:
@@ -117,10 +118,11 @@ class CancelledView(TemplateView):
     template_name = "cancelled.html"
 
 
+# NOT USED
 @csrf_exempt
 def stripe_webhook(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    endpoint_secret = "whsec_TVXgZgjYDrryuUocfcMhUlhoj9p0C0sc"
+    endpoint_secret = os.getenv("STRIPE_WEBHOOK")
     payload = request.body
     sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
     event = None

@@ -13,6 +13,7 @@ stripe = "*"
 dnspython = "*"
 gunicorn = "*"
 djongo = "*"
+django-formhelper = "*"
 
 [requires]
 python_version = "3.8"

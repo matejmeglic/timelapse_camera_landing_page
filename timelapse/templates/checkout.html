@@ -38,17 +38,21 @@
   </select>
   <br />
   <div class="product">
-    <h4>{{context.selected_product.product}}</h4>
+    <h4 id="product_name">{{context.selected_product.product}}</h4>
     <p>
       <strong>Price: {{context.selected_product.price}} EUR + </strong>
-      {{context.selected_product.shipping_price}} EUR shipping + VAT
+      {% if context.selected_product.shipping_price > 0%}
+      {{context.selected_product.shipping_price}} EUR shipping + {% endif %} VAT
     </p>
-    <!-- <p>{{context.selected_product.description}}</p> -->
+  </div>
+  <div>
+    <input id="quantity" type="number" value="1" min="1" max="10" />
+    <input id="pay" class="order_button" type="submit" value="Order here" />
   </div>
   <br />
   <div id="description"></div>
 
-  <br /><br />
+  <br />
   <ul>
     <li><strong>Get the latest features such as:</strong></li>
     <li>- Full control over camera settings</li>
@@ -65,18 +69,6 @@
   </ul>
 </div>
 
-<div class="main form-style-8">
-  <h3>Order here:</h3>
-  <br />
-  <form action="" method="post">
-    {% csrf_token %}
-    <table>
-      {{ context.form }}
-    </table>
-    <input type="submit" value="Submit Order" />
-  </form>
-</div>
-
 {{ context.productsJSON|json_script:"json" }}
 {{context.selected_product.description|json_script:"desc_first"}} {% endblock %}
 {% block scripts %}
@@ -89,20 +81,42 @@
   let description = document.getElementById("description");
   description.innerHTML = desc_first;
 
+  // set product slug for Stripe
+  let prod_name = document.getElementById("product_name").innerHTML;
+  let slug = "";
+  for (var i = 0; i < json.length; i++) {
+    if (prod_name === json[i].product) {
+      slug = json[i].slug;
+    }
+  }
+
+  // set quantity for Stripe
+  let quantity = document.getElementById("quantity");
+  let quantity_value = parseInt(document.getElementById("quantity").value);
+
+  quantity.addEventListener("change", (event) => {
+    quantity_value = parseInt(document.getElementById("quantity").value);
+  });
+
+  // Change text on Product dropdown select
   const selectElement = document.querySelector(".product_dropdown");
 
   selectElement.addEventListener("change", (event) => {
     const result = document.querySelector(".product");
     for (var i = 0; i < json.length; i++) {
       if (json[i].product === event.target.value) {
-        result.innerHTML = `<h4>${json[i].product}</h4><p><strong>Price: ${
-          json[i].price
-        } EUR + VAT </strong>${
-          json[i].shipping_price === 0 ? "" : json[i].shipping_price
-        }${json[i].shipping_price === 0 ? "" : " EUR shipping"}</p>`;
+        result.innerHTML = `<h4 id="product_name">${
+          json[i].product
+        }</h4><p><strong>Price: ${json[i].price} EUR </strong>
+          ${json[i].shipping_price > 0 ? "+ " : ""}${
+          json[i].shipping_price > 0 ? json[i].shipping_price : ""
+        }${json[i].shipping_price > 0 ? " EUR shipping" : ""} + VAT</p>`;
 
         description.innerHTML = "";
         description.innerHTML = json[i].description;
+        prod_name = json[i].product;
+        slug = json[i].slug;
+        quantity.value = 1;
       }
     }
   });
