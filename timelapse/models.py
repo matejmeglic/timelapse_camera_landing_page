@@ -10,7 +10,6 @@ class Product(models.Model):
     price_stripe = models.CharField("Price_ID", max_length=30, default="")
     price_tax = models.IntegerField("Price tax")
     price_tax_stripe = models.CharField("Price_tax_ID", max_length=30, default="")
-    shipping = models.BooleanField("Shipping", default=False)
     shipping_price = models.IntegerField("Shipping cost", null=True, blank=True)
     shipping_price_stripe = models.CharField(
         "Shipping_price_ID", max_length=30, null=True, blank=True
