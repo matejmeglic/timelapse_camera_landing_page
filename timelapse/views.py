@@ -69,9 +69,6 @@ def create_checkout_session(request):
         orderedProduct = Product.objects.filter(slug=request.GET.get("slug"))[0]
         items = [{}]
 
-        print(request)
-        print(request.GET.get("quantity"))
-
         if orderedProduct.shipping_price > 0:
             items = [
                 {
