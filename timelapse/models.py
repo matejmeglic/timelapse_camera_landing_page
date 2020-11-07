@@ -20,7 +20,7 @@ class Product(models.Model):
     )
     available = models.BooleanField("Available", default=False)
     coming_soon = models.BooleanField("Coming soon", default=False)
-    asdf = models.BooleanField("asdf", default=False)
+    shipping = models.BooleanField("asdf", default=False)
 
     class Meta:
         verbose_name = "Product"
