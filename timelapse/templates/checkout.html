@@ -45,10 +45,8 @@
       {{context.selected_product.shipping_price}} EUR shipping + {% endif %} VAT
     </p>
   </div>
-  <div>
-    <input id="quantity" type="number" value="1" min="1" max="10" />
-    <input id="pay" class="order_button" type="submit" value="Order here" />
-  </div>
+  <input id="quantity" type="number" value="1" min="1" max="10" />
+  <input id="pay" class="order_button" type="button" value="Order here" />
   <br />
   <div id="description"></div>
 
@@ -68,6 +66,8 @@
     <li>- Easy camera remote access</li>
   </ul>
 </div>
+<br />
+<br />
 
 {{ context.productsJSON|json_script:"json" }}
 {{context.selected_product.description|json_script:"desc_first"}} {% endblock %}
