@@ -69,7 +69,7 @@ def create_checkout_session(request):
         orderedProduct = Product.objects.filter(slug=request.GET.get("slug"))[0]
         items = [{}]
 
-        if orderedProduct.shipping_price > 0 or orderedProduct.shipping_price != "":
+        if orderedProduct.shipping_price > 0:
             items = [
                 {
                     "price": orderedProduct.price_stripe,
@@ -82,7 +82,7 @@ def create_checkout_session(request):
                     "tax_rates": [orderedProduct.shipping_tax_stripe],
                 },
             ]
-        else:
+        if orderedProduct.shipping_price == 0:
             items = [
                 {
                     "price": orderedProduct.price_stripe,
