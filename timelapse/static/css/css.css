@@ -143,18 +143,18 @@ select option {
   .content {
     display: flex;
     flex-direction: column;
-    padding-left: 10%;
+    padding-left: 5%;
     padding-right: 5%;
     text-align: justify;
   }
 
   .sidebar {
-    width: 80%;
+    width: 90%;
     margin: 5vh 0 0 0;
   }
 
   .desc {
-    max-width: 80%;
+    max-width: 90%;
     margin: 6vh 0 0 0;
   }
 
@@ -164,7 +164,7 @@ select option {
   }
 
   .main {
-    width: 80%;
+    width: 90%;
     margin: 8vh 0 8vh 0;
   }
 }
