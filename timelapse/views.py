@@ -62,7 +62,7 @@ def stripe_config(request):
 def create_checkout_session(request):
 
     if request.method == "GET":
-        domain_url = "http://localhost:8000/"
+        domain_url = "http://https://timelapsecamera.herokuapp.com/"
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         # Create Stripe lineItems (add shipping+tax)
