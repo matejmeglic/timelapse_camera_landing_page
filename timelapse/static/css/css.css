@@ -4,6 +4,8 @@
   color: #fff;
   margin: 5px;
   padding: 10px;
+  cursor: pointer;
+  z-index: 99;
 }
 
 a:link,
